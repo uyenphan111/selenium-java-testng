@@ -45,7 +45,7 @@ public class Topic_06_Web_Element_P3 {
 		fullname = lastname + " " + firstname;
 	}
 
-	//@Test
+	@Test
 	public void TC_01_Login_Empty() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -58,7 +58,7 @@ public class Topic_06_Web_Element_P3 {
 		Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).getText(), "This is a required field.");
 	}
 	
-	//@Test
+	@Test
 	public void TC_02_Invalid_Email() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -74,7 +74,7 @@ public class Topic_06_Web_Element_P3 {
 	}
 		
 	
-	//@Test
+	@Test
 	public void TC_03_Pw_Less_Than_6_Chars() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -90,7 +90,7 @@ public class Topic_06_Web_Element_P3 {
 		"Please enter 6 or more characters without leading or trailing spaces.");
 	}
 	
-	//@Test
+	@Test
 	public void TC_04_Incorrect_Email() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
