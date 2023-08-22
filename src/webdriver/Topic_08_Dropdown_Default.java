@@ -21,7 +21,7 @@ public class Topic_08_Dropdown_Default {
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
 	String firstname, lastname, emailAddress, companyname, day, month, year, password;
-	String country, city, address, postalcode, phoneNumber;
+	String country, city, address, postalcode, phoneNumber, passwordNew;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -42,7 +42,7 @@ public class Topic_08_Dropdown_Default {
 		month = "October";
 		year = "2000";
 		password = "Uyen123###";
-
+		passwordNew = "Uyensociu123##";
 		country = "Switzerland";
 		city = "ABC";
 		address = "abc";
@@ -88,6 +88,7 @@ public class Topic_08_Dropdown_Default {
 
 		Assert.assertEquals(driver.findElement(By.id("FirstName")).getAttribute("value"), firstname);
 		Assert.assertEquals(driver.findElement(By.id("LastName")).getAttribute("value"), lastname);
+		//Verify Dropdown Default: khi chọn 1 item nào xong thì sẽ lên hiển thị đầu tiên getFirstSelectedOption
 		Assert.assertEquals(
 				new Select(driver.findElement(By.name("DateOfBirthDay"))).getFirstSelectedOption().getText(), day);
 		Assert.assertEquals(
@@ -123,9 +124,32 @@ public class Topic_08_Dropdown_Default {
 		Assert.assertTrue(driver.findElement(By.cssSelector("li.city-state-zip")).getText().contains(city));
 		Assert.assertTrue(driver.findElement(By.cssSelector("li.city-state-zip")).getText().contains(postalcode));
 		
-		
 	}
 
+	@Test
+	public void TC_04_Change_Password_NotMatch() {
+		driver.findElement(By.xpath("//a[text()='Change password']")).click();
+		sleepInSecond(3);
+		
+		driver.findElement(By.id("OldPassword")).sendKeys(password);
+		driver.findElement(By.id("NewPassword")).sendKeys(passwordNew);
+		driver.findElement(By.id("ConfirmNewPassword")).sendKeys("122344$123nhdh");
+		driver.findElement(By.cssSelector("button.change-password-button")).click();
+		
+		//
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#ConfirmNewPassword-error")).getText(), "The new password and confirmation password do not match.");
+	}
+	
+	@Test
+	public void TC_05_Change_Password_Match() {
+		driver.findElement(By.id("NewPassword")).clear();
+		driver.findElement(By.id("NewPassword")).sendKeys(passwordNew);
+		driver.findElement(By.id("ConfirmNewPassword")).clear();
+		driver.findElement(By.id("ConfirmNewPassword")).sendKeys(passwordNew);
+		driver.findElement(By.cssSelector("button.change-password-button")).click();
+		
+	}
+	
 	public void sleepInSecond(long timeInScond) {
 		try {
 			Thread.sleep(timeInScond * 1000);
