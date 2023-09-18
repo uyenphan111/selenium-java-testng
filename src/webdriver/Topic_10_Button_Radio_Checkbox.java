@@ -22,16 +22,22 @@ public class Topic_10_Button_Radio_Checkbox {
 
 	@BeforeClass
 	public void beforeClass() {
+		/*
 		if (osName.contains("Windows")) {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		} else {
 			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
 		}
-
+		*/
+		/*
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		*/
 		
+		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
 	}
 
 	@Test

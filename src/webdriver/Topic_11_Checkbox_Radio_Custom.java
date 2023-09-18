@@ -19,6 +19,7 @@ public class Topic_11_Checkbox_Radio_Custom {
 
 	@BeforeClass
 	public void beforeClass() {
+		/*
 		if (osName.contains("Windows")) {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		} else {
@@ -26,9 +27,17 @@ public class Topic_11_Checkbox_Radio_Custom {
 		}
 
 		driver = new FirefoxDriver();
+		
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		*/
+		
+	
+		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
+
+		driver = new FirefoxDriver();
 		//Khởi tạo -> add kiểu
 		jsExcutor = (JavascriptExecutor) driver;
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
 	
 	}
 
