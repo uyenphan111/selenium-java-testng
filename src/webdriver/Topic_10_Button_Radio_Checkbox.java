@@ -22,33 +22,33 @@ public class Topic_10_Button_Radio_Checkbox {
 
 	@BeforeClass
 	public void beforeClass() {
-		/*
+		
 		if (osName.contains("Windows")) {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		} else {
-			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		}
-		*/
-		/*
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		*/
-		
-		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		
 		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		
+//		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
+//		
+//		driver = new FirefoxDriver();
+//		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Button() {
 		driver.get("https://www.fahasa.com/customer/account/create");
 		sleepInSecond(3);
 		driver.findElement(By.cssSelector("li.popup-login-tab-login")).click();
 		
+		// 
 		By loginButton = By.cssSelector("button.fhs-btn-login");
 		
-		//Verify login button is disable
+		//Verify login button is disable > vì btn này đang disable nên assert False(isEnable)
 		Assert.assertFalse(driver.findElement(loginButton).isEnabled());
 		
 		
@@ -80,7 +80,7 @@ public class Topic_10_Button_Radio_Checkbox {
 
 	}
 
-	//@Test
+	@Test
 	public void TC_03_Checkbox_Multiple() {
 		driver.get("https://automationfc.github.io/multiple-fields/");
 		sleepInSecond(3);
@@ -95,6 +95,7 @@ public class Topic_10_Button_Radio_Checkbox {
 			Assert.assertTrue(checkBox.isSelected());
 		}
 		
+		// uncheck
 		for (WebElement checkBox : allCheckboxes) {
 			checkBox.click();
 		}
@@ -110,12 +111,13 @@ public class Topic_10_Button_Radio_Checkbox {
 		}
 	}
 
-	@Test
+	//@Test
 	public void TC_04_Default_Checkbox() {
 		driver.get("https://demos.telerik.com/kendo-ui/checkbox/index");
 		sleepInSecond(3);
 		
 		//Chọn
+		
 		checkToCheckbox(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));
 		//Verify đã chọn
 		Assert.assertTrue(driver.findElement(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input")).isSelected());
@@ -134,11 +136,11 @@ public class Topic_10_Button_Radio_Checkbox {
 	}
 	
 	//Hàm bỏ chọn
-		public void unCheckToCheckbox(By by) {
-			if(driver.findElement(by).isSelected()) {
-				driver.findElement(by).click();
-			}
+	public void unCheckToCheckbox(By by) {
+		if(driver.findElement(by).isSelected()) {
+			driver.findElement(by).click();
 		}
+	}
 	
 	public void sleepInSecond(long timeInScond) {
 		try {

@@ -17,15 +17,15 @@ public class Topic_06_Web_Element_P3 {
 	String osName = System.getProperty("os.name");
 	String emailAddress, lastname, firstname, password, fullname;
 
-	By emailTextbox = By.id("mail");
-	By ageUnder18Radio = By.cssSelector("#under_18");
-	By educationTextArea = By.cssSelector("#edu");
-	By username5Text = By.xpath("//h5[text()='Name: User5']");
-	By passwordTextbox = By.cssSelector("#disable_password");
-	By biography = By.cssSelector("#bio");
-	By javaCheckbox = By.cssSelector("#java");
-	By passwordTextbox04 = By.id("new_password");
-	By signupButton04 = By.id("create-account-enabled");
+//	By emailTextbox = By.id("mail");
+//	By ageUnder18Radio = By.cssSelector("#under_18");
+//	By educationTextArea = By.cssSelector("#edu");
+//	By username5Text = By.xpath("//h5[text()='Name: User5']");
+//	By passwordTextbox = By.cssSelector("#disable_password");
+//	By biography = By.cssSelector("#bio");
+//	By javaCheckbox = By.cssSelector("#java");
+//	By passwordTextbox04 = By.id("new_password");
+//	By signupButton04 = By.id("create-account-enabled");
 
 	
 	@BeforeClass
@@ -74,7 +74,7 @@ public class Topic_06_Web_Element_P3 {
 	}
 		
 	
-	@Test
+	//@Test
 	public void TC_03_Pw_Less_Than_6_Chars() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -90,7 +90,7 @@ public class Topic_06_Web_Element_P3 {
 		"Please enter 6 or more characters without leading or trailing spaces.");
 	}
 	
-	@Test
+	//@Test
 	public void TC_04_Incorrect_Email() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -105,7 +105,7 @@ public class Topic_06_Web_Element_P3 {
 		Assert.assertEquals(driver.findElement(By.xpath("//li[@class='error-msg']//span")).getText(), "Invalid login or password.");
 	}
 	
-	@Test
+	//@Test
 	public void TC_05_Create_Account() {
 		driver.get("http://live.techpanda.org/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();

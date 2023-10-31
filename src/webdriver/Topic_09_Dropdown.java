@@ -36,7 +36,7 @@ public class Topic_09_Dropdown {
 	
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Jquery() {
 		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 		
@@ -54,8 +54,7 @@ public class Topic_09_Dropdown {
 		selectItemIndropdown("span#salutation-button", "ul#salutation-menu div[role='option']", "Dr.");
 		sleepInSecond(3);
 		
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#salutation-button")).getText(), "Dr.");
-		
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#salutation-button")).getText(), "Dr.");	
 	}
 	
 
@@ -75,7 +74,7 @@ public class Topic_09_Dropdown {
 	
 	}
 
-	@Test
+	//@Test
 	public void TC_03_ReactJS() {
 		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
 		selectItemIndropdown("div#root", "span.text", "Christian");
@@ -92,22 +91,55 @@ public class Topic_09_Dropdown {
 	@Test
 	public void TC_04_Editable() {
 		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
-		selectItemIndropdown("input.search", "span.text", "Algeria");
+		
+		enterAndSelectItemIndropdown("input.search", "div[role='option'] span.text", "Australia");
 		sleepInSecond(3);
 		
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.divider.text")).getText(), "Algeria");
-	
-		selectItemIndropdown("input.search", "span.text", "Bahrain");
+		Assert.assertEquals(driver.findElement(By.cssSelector("div[role='alert']")).getText(), "Australia");
+		
+		enterAndSelectItemIndropdown("input.search", "div[role='option'] span.text", "Bahamas");
 		sleepInSecond(3);
 		
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.divider.text")).getText(), "Bahrain");
+		Assert.assertEquals(driver.findElement(By.cssSelector("div[role='alert']")).getText(), "Bahamas");
 	}
 	
 	//Viết Hàm
 	public void selectItemIndropdown(String actionParent, String allItems, String expectedTextItem) {
-		//Miễn làm xao mà click vào nó xổ ra là được -> Xem element này là parent 
+		// 1.Miễn làm xao mà click vào nó xổ ra là được -> Xem element này là parent 
 		driver.findElement(By.cssSelector(actionParent)).click();
-
+		
+		// 2.Chờ cho tất cả các item được load ra thành công
+		// Locator phải lấy đại diện cho tất cả các item
+		// Lấy đến thẻ chứa text
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(allItems))); 
+		
+		// Đưa tất cả các item của dropdown vào 1 list
+		List<WebElement> speedDropdowmItem = driver.findElements(By.cssSelector(allItems));
+		
+		
+		// 3.Tìm xem item đúng cái đang cần hay không(Dùng vòng lặp for để duyệt qua từng item)
+		for (WebElement tempItem : speedDropdowmItem) {
+			String itemText = tempItem.getText();
+			System.out.println(itemText);
+			
+			// 4.Kiểm text item đó đúng với cái mình mong muốn
+			if (itemText.equals(expectedTextItem)) {
+				
+				// 5.Click vào item đó
+				tempItem.click();
+				// Thoát khỏi vòng lặp, không xét cho các case còn lại
+				break;
+			}
+		}
+	}
+	
+	// Viết 1 hàm nhập và chọn
+	public void enterAndSelectItemIndropdown(String textboxCss, String allItems, String expectedTextItem) {
+		// nhập expected item vào - tự động sổ ra các item matching
+		driver.findElement(By.cssSelector(textboxCss)).clear(); //Clear trước khi chọn lại
+		driver.findElement(By.cssSelector(textboxCss)).sendKeys(expectedTextItem);
+		sleepInSecond(3);
+		
 		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(allItems))); 
 		
 		List<WebElement> speedDropdowmItem = driver.findElements(By.cssSelector(allItems));
@@ -117,32 +149,13 @@ public class Topic_09_Dropdown {
 			System.out.println(itemText);
 			
 			if (itemText.equals(expectedTextItem)) {
+				sleepInSecond(1); 
 				tempItem.click();
 				break;
 			}
 		}
 	}
 	
-	public void enterAndSelectItemIndropdown(String textboxCss, String allItems, String expectedTextItem) {
-		//Miễn làm xao mà click vào nó xổ ra là được -> Xem element này là parent 
-		driver.findElement(By.cssSelector(textboxCss)).sendKeys(expectedTextItem);
-		sleepInSecond(1);
-		
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(allItems))); 
-		
-		List<WebElement> speedDropdowmItem = driver.findElements(By.cssSelector(allItems));
-		
-		for (WebElement tempItem : speedDropdowmItem) {
-			String itemText = tempItem.getText();
-			System.out.println(itemText);
-			
-			if (itemText.equals(expectedTextItem)) {
-				sleepInSecond(1);
-				tempItem.click();
-				break;
-			}
-		}
-	}
 	public void sleepInSecond(long timeInScond) {
 		try {
 			Thread.sleep(timeInScond * 1000);

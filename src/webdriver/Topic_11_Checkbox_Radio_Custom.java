@@ -19,45 +19,27 @@ public class Topic_11_Checkbox_Radio_Custom {
 
 	@BeforeClass
 	public void beforeClass() {
-		/*
-		if (osName.contains("Windows")) {
-			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-		} else {
-			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
-		}
-
-		driver = new FirefoxDriver();
-		
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		*/
-		
-	
 		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 
 		driver = new FirefoxDriver();
-		//Khởi tạo -> add kiểu
+		//Khởi tạo -> ép kiểu
 		jsExcutor = (JavascriptExecutor) driver;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
-	
 	}
 
 	@Test
 	public void TC_01() {
 		driver.get("https://tiemchungcovid19.gov.vn/portal/register-person");
-
-//		Thẻ input bị ẩn nhưng vẫn dùng để click
-//		Hàm click() của WebElement không thể thao tác được với element bị ẩn
-//		Nên dùng hàm click() của JavaScript để click
-//		Selenium cung cấp 1 thư việc để có thể nhúng các đoạn code JS vào kịch bản test được → Javascripexcutor
+		//Thao tác
+		By btnRadio = By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input");
 	
-		jsExcutor.executeScript("arguments[0].click();", driver.findElement(By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input")));
+		jsExcutor.executeScript("arguments[0].click();", driver.findElement(btnRadio));
 	
-//		Verify
-		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input")).isSelected());
-	
+		//Verify
+		Assert.assertTrue(driver.findElement(btnRadio).isSelected());
 }
 
-	@Test
+	//@Test
 	public void TC_02() {
 		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
 		
@@ -71,7 +53,6 @@ public class Topic_11_Checkbox_Radio_Custom {
 		
 		//verify
 		Assert.assertEquals(driver.findElement(radioButton).getAttribute("aria-checked"), "true");
-		
 		Assert.assertEquals(driver.findElement(checkbox).getAttribute("aria-checked"), "true");
 	}
 

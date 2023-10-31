@@ -45,6 +45,9 @@ public class Topic_02_Selenium_Locator {
 		
 		//Nhập text vào trang sea
 		driver.findElement(By.className("search-text")).sendKeys("Macbook");
+		
+		
+		
 	}
 
 	@Test

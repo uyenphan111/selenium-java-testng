@@ -36,7 +36,7 @@ public class Topic_07_Textbox_TextArea {
 	
 	}
 
-	//@Test
+	@Test
 	public void TC_01_Create_New_Employee() {
 		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 		WebElement username = driver.findElement(By.name("username"));
